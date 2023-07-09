@@ -1,0 +1,311 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6416027005065678760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5786887dd9db4caf839fd5c4314d7be9, type: 3}
+  m_Name: Quest Root
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -344, y: -88}
+  ports:
+    keys:
+    - StartQuest
+    values:
+    - _fieldName: StartQuest
+      _node: {fileID: -6416027005065678760}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: PrevNode
+        node: {fileID: -6308638790745566968}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &-6308638790745566968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 166a1770dacd4167975a8fff3f4b572d, type: 3}
+  m_Name: Obtains Tails And Resources
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 40, y: -88}
+  ports:
+    keys:
+    - NextNode
+    - PrevNode
+    - AggregatedNodes
+    values:
+    - _fieldName: NextNode
+      _node: {fileID: -6308638790745566968}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: PrevNode
+      _node: {fileID: -6308638790745566968}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: StartQuest
+        node: {fileID: -6416027005065678760}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: AggregatedNodes
+      _node: {fileID: -6308638790745566968}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: PrevNode
+        node: {fileID: 9008535105092735782}
+        reroutePoints: []
+      - fieldName: PrevNode
+        node: {fileID: -4899557508838866599}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &-4899557508838866599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a285da82d0e4109828ba1c1962ea6ae, type: 3}
+  m_Name: Obtain Wood Or Stone
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 328, y: 136}
+  ports:
+    keys:
+    - AggregatedNodes
+    - PrevNode
+    values:
+    - _fieldName: AggregatedNodes
+      _node: {fileID: -4899557508838866599}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: PrevNode
+        node: {fileID: 8200588090345259490}
+        reroutePoints: []
+      - fieldName: PrevNode
+        node: {fileID: 1569059444094240573}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: PrevNode
+      _node: {fileID: -4899557508838866599}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: AggregatedNodes
+        node: {fileID: -6308638790745566968}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd5bd477026b4ffb9911f3072dad0ed5, type: 3}
+  m_Name: BasicQuestSequence
+  m_EditorClassIdentifier: 
+  nodes:
+  - {fileID: -6416027005065678760}
+  - {fileID: -6308638790745566968}
+  - {fileID: -4899557508838866599}
+  - {fileID: 8200588090345259490}
+  - {fileID: 1569059444094240573}
+  - {fileID: 9008535105092735782}
+--- !u!114 &1569059444094240573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244ed35a3f764dbebccc7d0cd6f11a37, type: 3}
+  m_Name: Obtain Stone
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 584, y: 248}
+  ports:
+    keys:
+    - NextNode
+    - PrevNode
+    values:
+    - _fieldName: NextNode
+      _node: {fileID: 1569059444094240573}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: PrevNode
+      _node: {fileID: 1569059444094240573}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: AggregatedNodes
+        node: {fileID: -4899557508838866599}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  ItemType: 1
+  ItemCount: 2
+--- !u!114 &1668470971361954951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7255b7eaa2434625bdeed3804b1e41e8, type: 3}
+  m_Name: Character Quest Root
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -248, y: -88}
+  ports:
+    keys:
+    - StartQuest
+    values:
+    - _fieldName: StartQuest
+      _node: {fileID: 1668470971361954951}
+      _typeQualifiedName: Quests.QuestNode`1[[QuestsTest.IQuestCharacter, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+      connections:
+      - fieldName: Input
+        node: {fileID: 0}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  StartQuest: {fileID: 0}
+--- !u!114 &8200588090345259490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244ed35a3f764dbebccc7d0cd6f11a37, type: 3}
+  m_Name: Obtain Wood
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 584, y: 72}
+  ports:
+    keys:
+    - NextNode
+    - PrevNode
+    values:
+    - _fieldName: NextNode
+      _node: {fileID: 8200588090345259490}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: PrevNode
+      _node: {fileID: 8200588090345259490}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: AggregatedNodes
+        node: {fileID: -4899557508838866599}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  ItemType: 0
+  ItemCount: 2
+--- !u!114 &9008535105092735782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244ed35a3f764dbebccc7d0cd6f11a37, type: 3}
+  m_Name: Obtain Tails
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: 328, y: -24}
+  ports:
+    keys:
+    - PrevNode
+    - NextNode
+    values:
+    - _fieldName: PrevNode
+      _node: {fileID: 9008535105092735782}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: AggregatedNodes
+        node: {fileID: -6308638790745566968}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: NextNode
+      _node: {fileID: 9008535105092735782}
+      _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections: []
+      _direction: 1
+      _connectionType: 1
+      _typeConstraint: 0
+      _dynamic: 0
+  ItemType: 2
+  ItemCount: 1
