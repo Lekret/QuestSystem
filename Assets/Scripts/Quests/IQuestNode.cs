@@ -1,11 +1,15 @@
-﻿namespace Quests
+﻿using System;
+
+namespace Quests
 {
     public interface IQuestNode
     {
+        event Action<IQuestNode> Started;
+        event Action<IQuestNode> Completed;
         IQuestNode GetNextNode();
-        bool IsCompleted();
         void Initialize();
-        void OnStarted();
-        void OnCompleted();
+        bool IsCompleted();
+        void OnStart();
+        void OnComplete();
     }
 }

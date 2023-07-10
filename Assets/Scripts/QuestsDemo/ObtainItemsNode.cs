@@ -17,8 +17,7 @@ namespace QuestsDemo
         
         public override bool IsCompleted()
         {
-            var inventory = _character.GetInventory();
-            var item = inventory.ReadItem(ItemType);
+            var item = _character.Inventory.ReadItem(ItemType);
             return item.HasValue && item.Value.Count >= ItemCount;
         }
     }

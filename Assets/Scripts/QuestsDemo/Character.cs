@@ -1,4 +1,6 @@
-﻿using Quests;
+﻿using System;
+using Quests;
+using Quests.Logging;
 using UnityEngine;
 
 namespace QuestsDemo
@@ -7,25 +9,29 @@ namespace QuestsDemo
     public class Character : MonoBehaviour, IQuestCharacter
     {
         [SerializeField] private CharacterQuestGraph _startGraph;
-        
-        private Inventory _inventory;
-        private QuestRunner _questRunner;
+
+        private QuestNodeListener _questNodeListener;
+
+        public Inventory Inventory { get; private set; }
+        public QuestRunner QuestRunner { get; private set; }
 
         private void Awake()
         {
-            _inventory = GetComponent<Inventory>();
-            _questRunner = new QuestRunner();
-            _questRunner.Init<IQuestCharacter>(_startGraph, this);
+            Inventory = GetComponent<Inventory>();
+            QuestRunner = new QuestRunner(_startGraph);
+            _questNodeListener = new QuestNodeListener(QuestRunner.GetQuestNodes(), new QuestNodeLogger());
+            _questNodeListener.Init();
+            QuestRunner.Init<IQuestCharacter>(this);
+        }
+
+        private void OnDestroy()
+        {
+            _questNodeListener.Dispose();
         }
 
         private void Update()
         {
-            _questRunner.Tick();
-        }
-
-        public Inventory GetInventory()
-        {
-            return _inventory;
+            QuestRunner.Tick();
         }
     }
 }

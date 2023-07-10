@@ -11,10 +11,7 @@ namespace Quests
 
         public IQuestNode GetStartNode()
         {
-            var outputPort = GetOutputPort(nameof(StartQuest));
-            if (outputPort.ConnectionCount > 0)
-                return outputPort.GetConnection(0).node as IQuestNode;
-            return null;
+            return GetOutputPort(nameof(StartQuest)).GetConnectedQuestNode();
         }
 
         public override object GetValue(NodePort port) => null;

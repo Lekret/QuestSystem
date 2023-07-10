@@ -1,4 +1,4 @@
-using UnityEngine;
+using System;
 using XNode;
 
 namespace Quests
@@ -11,30 +11,45 @@ namespace Quests
         [Output(ShowBackingValue.Never, ConnectionType.Override, TypeConstraint.None)]
         public QuestConn NextNode;
 
+        public event Action<IQuestNode> Started;
+        public event Action<IQuestNode> Completed;
+
         public virtual IQuestNode GetNextNode()
         {
-            var outputPort = GetOutputPort(nameof(NextNode));
-            if (outputPort.ConnectionCount > 0)
-                return outputPort.GetConnection(0).node as IQuestNode;
-            return null;
+            return GetOutputPort(nameof(NextNode)).GetConnectedQuestNode();
+        }
+
+        public void Initialize()
+        {
+            OnInitialize();
         }
 
         public abstract bool IsCompleted();
-        
-        public virtual void Initialize()
+
+        public void OnStart()
+        {
+            OnStarted();
+            Started?.Invoke(this);
+        }
+
+        public void OnComplete()
+        {
+            OnCompleted();
+            Completed?.Invoke(this);
+        }
+
+        protected virtual void OnInitialize()
         {
         }
 
-        public virtual void OnStarted()
+        protected virtual void OnStarted()
         {
-            Debug.Log($"Quest started: {name}", this);
         }
 
-        public virtual void OnCompleted()
+        protected virtual void OnCompleted()
         {
-            Debug.Log($"Quest completed: {name}", this);
         }
-        
+
         public override object GetValue(NodePort port) => null;
     }
 }

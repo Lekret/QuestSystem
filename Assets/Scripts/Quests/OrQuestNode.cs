@@ -1,24 +1,31 @@
-﻿using System.Linq;
-using UnityEngine;
+﻿using System;
 using XNode;
 
 namespace Quests
 {
     [CreateNodeMenu("Quests/Or")]
-    public class QuestOrNode : Node, IQuestNode
+    public class OrQuestNode : Node, IQuestNode
     {
         [Input(ShowBackingValue.Never, ConnectionType.Multiple, TypeConstraint.None)]
         public QuestConn PrevNode;
-        
+
         [Output(ShowBackingValue.Never, ConnectionType.Multiple, TypeConstraint.None)]
-        public QuestConn AggregatedNodes;
+        public QuestConn ChildNodes;
 
         private IQuestNode _completedNode;
         private IQuestNode[] _questNodes;
 
+        public event Action<IQuestNode> Started;
+        public event Action<IQuestNode> Completed;
+
         public IQuestNode GetNextNode()
         {
             return _completedNode.GetNextNode();
+        }
+
+        public void Initialize()
+        {
+            _questNodes = GetOutputPort(nameof(ChildNodes)).GetConnectedQuestNodes();
         }
 
         public bool IsCompleted()
@@ -35,29 +42,20 @@ namespace Quests
             return false;
         }
 
-        public void Initialize()
+        public void OnStart()
         {
-            _questNodes = GetOutputPort(nameof(AggregatedNodes))
-                .GetConnections()
-                .Where(n => n.node is IQuestNode)
-                .Select(n => n.node as IQuestNode)
-                .ToArray();
-        }
-
-        public void OnStarted()
-        {
-            Debug.Log($"Quest started: {name}", this);
+            Started?.Invoke(this);
             foreach (var node in _questNodes)
             {
-                node.OnStarted();
+                node.OnStart();
             }
         }
 
-        public void OnCompleted()
+        public void OnComplete()
         {
-            _completedNode.OnCompleted();
+            _completedNode.OnComplete();
             _completedNode = null;
-            Debug.Log($"Quest completed: {name}", this);
+            Completed?.Invoke(this);
         }
 
         public override object GetValue(NodePort port) => null;

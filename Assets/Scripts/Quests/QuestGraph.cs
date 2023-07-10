@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using XNode;
 
@@ -8,11 +9,23 @@ namespace Quests
     {
         private bool _isInstance;
         
-        public QuestRootNode GetRoot()
+        public IQuestNode GetStartNode()
         {
-            return (QuestRootNode) nodes.Single(n => n is QuestRootNode);
+            var rootNode = (QuestRootNode) nodes.Single(n => n is QuestRootNode);
+            if (rootNode == null)
+            {
+                Debug.LogError("QuestGraph has no root node", rootNode);
+                return null;
+            }
+            
+            return rootNode.GetStartNode();
         }
 
+        public IQuestNode[] GetQuestNodes()
+        {
+            return nodes.OfType<IQuestNode>().ToArray();
+        }
+        
         public void InitializeInstance<T>(T payload)
         {
             _isInstance = true;

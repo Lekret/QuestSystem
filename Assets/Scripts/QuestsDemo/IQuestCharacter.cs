@@ -2,6 +2,6 @@
 {
     public interface IQuestCharacter
     {
-        Inventory GetInventory();
+        Inventory Inventory { get; }
     }
 }

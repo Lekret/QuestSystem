@@ -1,25 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Quests
 {
     public class QuestRunner
     {
-        private QuestGraph _questGraph;
+        private readonly QuestGraph _questGraph;
         private IQuestNode _currentNode;
+        public IQuestNode CurrentNode => _currentNode;
         
-        public void Init<T>(QuestGraph questGraph, T payload)
+        public IQuestNode[] GetQuestNodes() => _questGraph.GetQuestNodes();
+
+        public QuestRunner(QuestGraph questGraphTemplate)
         {
-            _questGraph = Object.Instantiate(questGraph);
+            _questGraph = Object.Instantiate(questGraphTemplate);
+        }
+
+        public void Init<TPayload>(TPayload payload)
+        {
             _questGraph.InitializeInstance(payload);
-            var rootNode = questGraph.GetRoot();
-            _currentNode = rootNode.GetStartNode();
+            _currentNode = _questGraph.GetStartNode();
             if (_currentNode != null)
             {
-                _currentNode.OnStarted();
+                _currentNode.OnStart();
             }
             else
             {
-                Debug.LogError("Root node has no start node", rootNode);
+                Debug.LogError("StartNode is null", _questGraph);
             }
         }
 
@@ -31,11 +38,11 @@ namespace Quests
             if (!_currentNode.IsCompleted())
                 return;
             
-            _currentNode.OnCompleted();
+            _currentNode.OnComplete();
             _currentNode = _currentNode.GetNextNode();
             if (_currentNode != null)
             {
-                _currentNode.OnStarted();
+                _currentNode.OnStart();
             }
             else
             {

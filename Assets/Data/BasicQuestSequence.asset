@@ -40,7 +40,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 166a1770dacd4167975a8fff3f4b572d, type: 3}
-  m_Name: Obtains Tails And Resources
+  m_Name: Obtains Tails AND Resources
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 40, y: -88}
@@ -48,7 +48,7 @@ MonoBehaviour:
     keys:
     - NextNode
     - PrevNode
-    - AggregatedNodes
+    - ChildNodes
     values:
     - _fieldName: NextNode
       _node: {fileID: -6308638790745566968}
@@ -71,7 +71,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-    - _fieldName: AggregatedNodes
+    - _fieldName: ChildNodes
       _node: {fileID: -6308638790745566968}
       _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
@@ -96,25 +96,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a285da82d0e4109828ba1c1962ea6ae, type: 3}
-  m_Name: Obtain Wood Or Stone
+  m_Name: Obtain Wood OR Stone
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
   position: {x: 328, y: 136}
   ports:
     keys:
-    - AggregatedNodes
+    - ChildNodes
     - PrevNode
     values:
-    - _fieldName: AggregatedNodes
+    - _fieldName: ChildNodes
       _node: {fileID: -4899557508838866599}
       _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
       - fieldName: PrevNode
-        node: {fileID: 8200588090345259490}
+        node: {fileID: 1569059444094240573}
         reroutePoints: []
       - fieldName: PrevNode
-        node: {fileID: 1569059444094240573}
+        node: {fileID: 8200588090345259490}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -125,7 +125,7 @@ MonoBehaviour:
       _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: AggregatedNodes
+      - fieldName: ChildNodes
         node: {fileID: -6308638790745566968}
         reroutePoints: []
       _direction: 0
@@ -184,7 +184,7 @@ MonoBehaviour:
       _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: AggregatedNodes
+      - fieldName: ChildNodes
         node: {fileID: -4899557508838866599}
         reroutePoints: []
       _direction: 0
@@ -258,7 +258,7 @@ MonoBehaviour:
       _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: AggregatedNodes
+      - fieldName: ChildNodes
         node: {fileID: -4899557508838866599}
         reroutePoints: []
       _direction: 0
@@ -291,7 +291,7 @@ MonoBehaviour:
       _typeQualifiedName: Quests.QuestConn, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
       connections:
-      - fieldName: AggregatedNodes
+      - fieldName: ChildNodes
         node: {fileID: -6308638790745566968}
         reroutePoints: []
       _direction: 0
